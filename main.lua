@@ -1,9 +1,9 @@
+local n = 17
 local mfl, mce = math.floor, math.ceil
 local mmi, mma = math.min, math.max
 local msq = math.sqrt
 local rnd = math.random
 local xc, yc = {}, {}
-local n = 6
 local curscore = 0
 local step = 0
 local maxscore = 0
@@ -117,8 +117,9 @@ end
 
 function love.keypressed(key, scancode, rep)
   if key == "s" then
-    local f = io.open("out.lua", "w")
+    local f = io.open("out_n" .. n .. ".lua", "w")
     f:write("-- https://github.com/obakyan/joi2007_packing_visualizer\n")
+    f:write("-- " .. string.format("%.12f", maxscore) .. "\n")
     for i = 1, n do
       f:write("print(\""
         .. mfl(xc[i] * 100000000 + 0.5) .. " "
