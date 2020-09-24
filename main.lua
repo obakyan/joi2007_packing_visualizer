@@ -3,8 +3,9 @@ local mmi = math.min
 local msq = math.sqrt
 local rnd = math.random
 local xc, yc = {}, {}
-local n = 11
+local n = 6
 local curscore = 0
+local step = 0
 
 local function getlen(i, j)
   return msq((xc[i] - xc[j]) * (xc[i] - xc[j]) + (yc[i] - yc[j]) * (yc[i] - yc[j]))
@@ -29,11 +30,20 @@ function love.load()
   for i = 1, n do
     xc[i] = (1 + 2 * (i % sq)) / 2 / sq
     yc[i] = (2 * mce(i / sq) - 1) / 2 / sq
+    xc[i] = rnd()
+    yc[i] = rnd()
   end
+  -- xc[1] = 0.18768061 yc[1] = 0.81231939
+  -- xc[2] = 0.81231939 yc[2] = 0.50000000
+  -- xc[3] = 0.60410646 yc[3] = 0.18768060
+  -- xc[4] = 0.18768061 yc[4] = 0.18768061
+  -- xc[5] = 0.39589354 yc[5] = 0.50000000
+  -- xc[6] = 0.60410647 yc[6] = 0.81231940
   curscore = getscore()
 end
 
 local function challenge()
+  step = step + 1
   local idx = rnd(1, n)
   local px, py = xc[idx], yc[idx]
   local range = 0.05
@@ -57,6 +67,7 @@ end
 function love.draw()
   local w = 500
   love.graphics.print("" .. curscore, 0, 0)
+  love.graphics.print("" .. step, 0, 30)
   for i = 1, n do
     local x, y = xc[i], yc[i]
     love.graphics.circle("line", x * w, y * w, curscore * w)
