@@ -48,7 +48,8 @@ local function challenge()
 end
 function love.update(dt)
   local z = os.clock()
-  while os.clock() - z < dt do
+  local limit = 0.1
+  while os.clock() - z < limit do
     challenge()
   end
 end
